@@ -1,0 +1,15 @@
+require("./utils/mongoConnection");
+const express = require("express");
+const bodyparser = require("body-parser");
+const cors = require("cors");
+const app = express();
+app.use(express.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cors());
+const statusRouter = require("./routers/serverRouter");
+const signUpRouter = require("./routers/signupRouter");
+const loginRouter = require("./routers/loginRouter");
+app.use("/", statusRouter);
+app.use("/auth", signUpRouter);
+app.use("/auth", loginRouter);
+app.listen(process.env.PORT, () => {});
