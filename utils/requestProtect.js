@@ -1,5 +1,6 @@
 const User = require("../models/userModal");
 const util = require("util");
+const jwt = require("jsonwebtoken");
 
 exports.protect = async (req, res, next) => {
   try {
