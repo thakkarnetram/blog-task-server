@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
-const shortid = require("shortid");
 
 const blogSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    default: shortid.generate,
-  },
   user: {
     type: String,
     ref: "users",
