@@ -1,7 +1,7 @@
 const User = require("../models/userModal");
 const Blog = require("../models/blogModal");
 
-exports.getBlog = async (req, res) => {
+exports.getAllBlog = async (req, res) => {
   try {
     const blog = await Blog.find();
     if (!blog) {
@@ -22,6 +22,21 @@ exports.getBlogById = async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     } else {
       return res.status(200).json(blog);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: `Internal Server Error ${error}` });
+  }
+};
+
+exports.getUserBlogs = async (req, res) => {
+  try {
+    const name = req.user.name;
+    console.log(name);
+    const blogs = await Blog.find({ user: name });
+    if (!blogs) {
+      return res.status(404).json({ message: "User does not have blogs" });
+    } else {
+      return res.status(200).json(blogs);
     }
   } catch (error) {
     return res.status(500).json({ message: `Internal Server Error ${error}` });
@@ -69,7 +84,7 @@ exports.deleteBlog = async (req, res) => {
   try {
     const _id = req.params._id;
     const name = req.user.name;
-    const blog = await Blog.findOne({ _id, name });
+    const blog = await Blog.findOne({ _id, user: name });
     if (!blog) {
       return res.status(404).json({ message: "No blog found" });
     }

@@ -4,7 +4,10 @@ const jwtMiddleware = require("../utils/requestProtect");
 
 const router = express.Router();
 
-router.route("/blogs").get(jwtMiddleware.protect, blogController.getBlog);
+router.route("/blogs").get(jwtMiddleware.protect, blogController.getAllBlog);
+router
+  .route("/blogs/user")
+  .get(jwtMiddleware.protect, blogController.getUserBlogs);
 router
   .route("/blogs/:_id")
   .get(jwtMiddleware.protect, blogController.getBlogById);
