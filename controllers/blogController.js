@@ -68,7 +68,7 @@ exports.updateBlog = async (req, res) => {
     const _id = req.params._id;
     const name = req.user.name;
     const updatedBlog = req.body;
-    const blog = await Blog.findOne({ _id, name });
+    const blog = await Blog.findOne({ _id, user: name });
     if (!blog) {
       return res.status(401).json({ message: "Unauthorized to update this" });
     }
